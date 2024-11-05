@@ -1,0 +1,97 @@
+server:
+  port: 8080
+  tomcat:
+    max-connections: 8192
+    threads:
+      max: 200
+      min-spare: 10
+    mbeanregistry:
+      enabled: true
+spring:
+  application:
+    name: ms-camunda
+camunda:
+  bpm:
+    enabled: true
+    process-engine-name: default
+    job-executor-acquire-by-priority: ${JOB_EXEC_BY_PRIORITY:true}
+    webapp:
+      index-redirect-enabled: true
+    database:
+      schema-update: ${SCHEMA_UPDATE:true}
+    admin-user:
+      id: ${ADMIN_USER:demo}
+      password: ${ADMIN_PASSWD:demo}
+    metrics:
+      enabled: true
+      db-reporter-activate: true
+    job-execution:
+      enabled: true
+      max-jobs-per-acquisition: ${JA_MAX_JOB_PER_ACQ:4}
+      queue-capacity: ${JE_QUEUE_CAP:4}
+      core-pool-size: ${JE_CORE_POOL_SIZE:4}
+      max-pool-size: ${JE_MAX_POOL_SIZE:12}
+    authorization:
+      enabled: ${ENABLE_AUTH:false}
+    generic-properties:
+      properties:
+        history: ${CFG_HISTORY_LEVEL:full}
+        historyCleanupDegreeOfParallelism: ${CFG_HISTORY_PARALLELISM:3}
+        historyCleanupBatchSize: ${CFG_HISTORY_BATCH_SIZE:100}
+        historyCleanupStrategy: ${CFG_HISTORY_CLEANUP_STRATEGY:removalTimeBased}
+        historyRemovalTimeStrategy: ${CFG_HISTORY_REMOVAL_TIME_STRATEGY:end}
+        historyCleanupJobLogTimeToLive: ${CFG_HISTORY_CLEANUP_JOB_TTL:P5D}
+        taskMetricsTimeToLive: ${CFG_TASK_METRICS_TTL:P30D}
+        failedJobRetryTimeCycle: ${CFG_JOB_RETRY_TIME_CYCLE:R5/PT5M}
+
+management:
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLING:1}
+    enabled: ${ENABLED_TRACING:false}
+  metrics:
+    tags:
+      application: ms-camunda
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  otlp:
+    metrics:
+      export:
+        url: ${OTLP_METRICS_URL:http://localhost:4318/v1/metrics}
+        step: 10s
+        enabled: ${ENABLED_EXPORT_METRICS:false}
+    tracing:
+      endpoint: ${OTLP_TRACING_URL:http://localhost:4318/v1/traces}
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,info,metrics,prometheus
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+log:
+  exporter:
+    enabled: ${ENABLED_EXPORTER_LOG:false}
+    url: ${URL_EXPORTER_LOG:http://localhost:4317}
+
+persistence:
+  postgresql:
+    driverClassName: ${DB_DRIVER:org.postgresql.Driver}
+    jdbcUrl: ${DB_URL:jdbc:postgresql://localhost:5432/camunda722}
+    username: ${DB_USER:camunda_user}
+    password: ${DB_PASSWORD:>K8Mqs<BArq2QOfP]5E}
+    hikari:
+      poolName: ${HIKARI_POOL_NAME:camundaPool}
+      keepAliveTime: ${HIKARI_KEEP_ALIVE_TIME:60000}
+      maxLifeTime: ${HIKARI_MAX_LIFE_TIME:300000}
+      connectionTimeout: ${HIKARI_CONN_TIME_OUT:30000}
+      idleTimeout: ${HIKARI_IDLE_TIME_OUT:600000}
+      minimumIdle: ${HIKARI_MIN_IDLE:10}
+      maximumPoolSize: ${HIKARI_MAX_POOL_SIZE:10}
+

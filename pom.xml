@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.nttdata.camunda</groupId>
+	<artifactId>ms-camunda</artifactId>
+	<version>0.0.3</version>
+	<name>ms-camunda</name>
+	<description>Spring Boot microservice with Camunda Engine.</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Roque Javier Ducuara</name>
+			<organization>NTTData</organization>
+			<organizationUrl>https://www.nttdata.com/global/en/</organizationUrl>
+			<email>rducuara@emeal.nttdata.com</email>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>21</java.version>
+		<spring-cloud.version>2023.0.3</spring-cloud.version>
+		<camunda.spring.boot.starter.version>7.22.0</camunda.spring.boot.starter.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<!-- For Observation AOP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-otlp</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!--For Tracing Context Propagation-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-otel</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+		</dependency>
+		<!-- For OpenTelemetry -->
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-otlp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry.instrumentation</groupId>
+			<artifactId>opentelemetry-logback-appender-1.0</artifactId>
+			<version>1.33.2-alpha</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.camunda.bpm/camunda-engine-plugin-spin -->
+		<dependency>
+			<groupId>org.camunda.bpm</groupId>
+			<artifactId>camunda-engine-plugin-spin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.spin</groupId>
+			<artifactId>camunda-spin-dataformat-all</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.camunda.bpm/camunda-engine-plugin-connect -->
+		<dependency>
+			<groupId>org.camunda.bpm</groupId>
+			<artifactId>camunda-engine-plugin-connect</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+		</dependency>
+		<!-- Use GraalVM JavaScript for JDK > 14 -->
+		<dependency>
+			<groupId>org.graalvm.js</groupId>
+			<artifactId>js</artifactId>
+			<version>21.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.js</groupId>
+			<artifactId>js-scriptengine</artifactId>
+			<version>21.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.groovy/groovy-all -->
+		<dependency>
+			<groupId>org.apache.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>4.0.23</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.camunda.bpm</groupId>
+				<artifactId>camunda-bom</artifactId>
+				<version>${camunda.spring.boot.starter.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
