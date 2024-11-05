@@ -1,9 +1,9 @@
 server:
   port: 8080
   tomcat:
-    max-connections: 8192
+    max-connections: ${TOMCAT_MAX_CONNECTIONS:8192}
     threads:
-      max: 200
+      max: ${TOMCAT_MAX_THREADS:200}
       min-spare: 10
     mbeanregistry:
       enabled: true
@@ -27,10 +27,19 @@ camunda:
       db-reporter-activate: true
     job-execution:
       enabled: true
-      max-jobs-per-acquisition: ${JA_MAX_JOB_PER_ACQ:4}
+      max-jobs-per-acquisition: ${JE_MAX_JOB_PER_ACQ:4}
       queue-capacity: ${JE_QUEUE_CAP:4}
       core-pool-size: ${JE_CORE_POOL_SIZE:4}
       max-pool-size: ${JE_MAX_POOL_SIZE:12}
+      keep-alive-seconds: ${JE_KEEP_ALIVE:0}
+      lock-time-in-millis: ${JE_LOCK_TIME:300000}
+      wait-time-in-millis: ${JE_WAIT_TIME:5000}
+      max-wait: ${JE_MAX_WAIT:60000}
+      backoff-time-in-millis: ${JE_BACKOFF_TIME:0}
+      max-backoff: ${JE_MAX_BACKOFF:0}
+      backoff-decrease-threshold: ${JE_BACKOFF_DECREASE_THRESHOLD:100}
+      wait-increase-factor: ${JE_WAIT_INCREASE_FACTOR:2}
+      deployment-aware: ${JE_DEPLOYMENT_AWARE:false}
     authorization:
       enabled: ${ENABLE_AUTH:false}
     generic-properties:
