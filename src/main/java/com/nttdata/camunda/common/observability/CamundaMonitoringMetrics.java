@@ -6,17 +6,13 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.ManagementService;
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.management.Metrics;
 import org.camunda.bpm.engine.management.MetricsQuery;
 import org.camunda.bpm.engine.query.Query;
 import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.JobQuery;
-import org.camunda.bpm.engine.spring.ProcessEngineFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 @Slf4j
 @Configuration
@@ -102,5 +98,33 @@ public class CamundaMonitoringMetrics {
         Query<JobQuery, Job> jobQuery = service.createJobQuery().executable().messages();
         return Gauge.builder("jobs.due", jobQuery::count)
             .description("Jobs from async continuation that are due").register(registry);
+    }
+
+    @Bean
+    public Gauge processInstances(MeterRegistry registry) {
+        MetricsQuery query = service.createMetricsQuery().name(Metrics.PROCESS_INSTANCES);
+        return Gauge.builder("process.instance", query::sum)
+            .description("Number of executed Process Instances.").register(registry);
+    }
+
+    @Bean
+    public Gauge uniqueTaskWorkers(MeterRegistry registry) {
+        MetricsQuery query = service.createMetricsQuery().name(Metrics.UNIQUE_TASK_WORKERS);
+        return Gauge.builder("unique.task.workers", query::sum)
+            .description("Number of unique task workers.").register(registry);
+    }
+
+    @Bean
+    public Gauge activityInstanceStart(MeterRegistry registry) {
+        MetricsQuery query = service.createMetricsQuery().name(Metrics.ACTIVTY_INSTANCE_START);
+        return Gauge.builder("activity.instance.start", query::sum)
+            .description("Number of activity instances started.").register(registry);
+    }
+
+    @Bean
+    public Gauge activityInstanceEnd(MeterRegistry registry) {
+        MetricsQuery query = service.createMetricsQuery().name(Metrics.ACTIVTY_INSTANCE_END);
+        return Gauge.builder("activity.instance.end", query::sum)
+            .description("Number of activity instances Ended.").register(registry);
     }
 }

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nttdata.camunda</groupId>
 	<artifactId>ms-camunda</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<name>ms-camunda</name>
 	<description>Spring Boot microservice with Camunda Engine.</description>
 	<url/>
