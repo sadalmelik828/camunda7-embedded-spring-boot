@@ -8,6 +8,9 @@ server:
     mbeanregistry:
       enabled: true
 spring:
+  threads:
+    virtual:
+      enabled: true
   application:
     name: ms-camunda
 camunda:
@@ -61,6 +64,7 @@ management:
   metrics:
     tags:
       application: ms-camunda
+      k8sPodName: ${MS_POD_NAME:default_camunda_pod}
     distribution:
       percentiles-histogram:
         http:
